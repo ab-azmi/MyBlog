@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,36 +14,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Models\Comment;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Category;
 
-Route::get('/createpost', function(){
-    $post = Post::create([
-        'title' => 'This is title',
-        'slug' => 'this is slug',
-        'excerpt' => 'bla bla bla',
-        'body' => 'lorem ipsum dolor sit amet',
-        'user_id' => 1,
-        'category_id' => Category::find(1)->id
-    ]);
-    $post->image()->create(['name' => 'random file', 'extension'=>'jpg', 'path'=>'/image/random_file.jpg']);
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-
-Route::get('/comments', function () {
-    $user = User::find(1);
-    return $user->comments;
-});
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/post', function () {
-    return view('post');
-})->name('post');
+Route::get('/post/{post:slug}', [PostController::class, 'show'])->name('post.show');
+Route::post('/post/{post:slug}', [PostController::class, 'addComment'])->name('post.add_comment');
 
 Route::get('/about', function(){
     return view('about');
