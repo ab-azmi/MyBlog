@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'mailgun'),
 
     /*
     |--------------------------------------------------------------------------
@@ -92,10 +92,11 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'contact@myblog.com',
+        'name' => 'MyBlog Contact',
     ],
 
+    'reply_to' => ['address' => 'contact@myblog.com', 'name' => 'MyBlog Contact'],
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
