@@ -6,6 +6,7 @@ use App\Mail\ContactMail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -14,31 +15,46 @@ class ContactController extends Controller
         # code...
         return view('contact');
     }
-    
+
     public function store()
     {
-        $attributes = request()->validate([
+        $data = array();
+        $data['success'] = 0;
+        $data['errors'] = [];
+
+        $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
             'subject' => 'nullable|min:3|max:50',
             'message' => 'required|min:5|max:500',
-        ]);
+        ];
 
-        Contact::create($attributes);
+        $validated = Validator::make(request()->all(), $rules);
 
-        Mail::to(env('ADMIN_EMAIL'))->send(new ContactMail(
-            $attributes['first_name'],
-            $attributes['last_name'],
-            $attributes['email'],
-            $attributes['subject'],
-            $attributes['message'],
-        ));
+        if($validated->fails()){
+            $data['errors']['first_name'] = $validated->errors()->first('first_name');
+            $data['errors']['last_name'] = $validated->errors()->first('last_name');
+            $data['errors']['email'] = $validated->errors()->first('email');
+            $data['errors']['subject'] = $validated->errors()->first('subject');
+            $data['errors']['message'] = $validated->errors()->first('message');
 
-        if (Mail::failures() != 0) {
-            return redirect()->route('contact.create')->with('success', 'Your message has been sent');
+        }else{
+            $attributes = $validated->validated();
+            Contact::create($attributes);
+
+            Mail::to(env('ADMIN_EMAIL'))->send(new ContactMail(
+                $attributes['first_name'],
+                $attributes['last_name'],
+                $attributes['email'],
+                $attributes['subject'],
+                $attributes['message'],
+            ));
+            
+            $data['success'] = 1;
+            $data['message'] = 'Thank you for contacting us!';
         }
-        return "Oops! There was some error sending the email.";        
+        //return redirect()->route('contact.create')->with('success', 'Your message has been sent');
+        return response()->json($data);
     }
-    
 }

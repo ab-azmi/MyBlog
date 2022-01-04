@@ -1,0 +1,16 @@
+.global-message{
+    position: fixed !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    min-width: 500px !important;
+    color: white !important;
+    border-radius: 50px !important;
+    z-index: 100 !important;
+}
+
+.global-message-info{
+    background: #4586ff !important;
+}
+.global-message-error{
+    background: #d81d1d !important;
+}
