@@ -14,3 +14,7 @@
 .global-message-error{
     background: #d81d1d !important;
 }
+
+.categories-col .block-21 .text{
+    width: 100% !important;
+}
