@@ -3,7 +3,9 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminControllers\AdminPostsController;
 use App\Http\Controllers\AdminControllers\DashboardController;
+use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TagController;
@@ -40,11 +42,11 @@ Route::get('/tags', [TagController::class, 'index'])->name('tags.index');
 
 require __DIR__.'/auth.php';
 
-
-
+Route::post('/tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('/tinymce_image')->middleware(['auth', 'IsAdmin']);
 //Admin Dashboard Routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'IsAdmin'])->group(function(){
 
     Route::get('/', [DashboardController::class, 'index'])->name('index');
-
+    Route::resource('posts', AdminPostsController::class);
+    //Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
 });
