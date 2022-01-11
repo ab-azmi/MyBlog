@@ -21,7 +21,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         return view('admin_dashboard.posts.index',[
-            'posts' => Post::with('category')->get(),
+            'posts' => Post::with('category')->paginate(50),
         ]);
     }
 
@@ -36,8 +36,8 @@ class AdminPostsController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate($this->rules);
+        $validated['user_id'] = auth()->id();
         $post = Post::create($validated);
-
 
         if(request()->has('thumbnail')){
             $thumbnail = request()->file('thumbnail');

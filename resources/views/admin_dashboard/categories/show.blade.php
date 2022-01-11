@@ -6,13 +6,13 @@
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Posts</div>
+            <div class="breadcrumb-title pe-3">Categories</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Posts</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$category->name}} Posts</li>
                     </ol>
                 </nav>
             </div>
@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($posts as $post)
+                            @foreach ($category->posts as $post)
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -62,9 +62,9 @@
 
                                 <td>
                                     @if ($post->category)
-                                        {{$post->category->name}}
+                                    {{$post->category->name}}
                                     @else
-                                        {{''}}
+                                    {{''}}
                                     @endif
                                 </td>
                                 <td>{{$post->created_at->diffForHumans()}}</td>
@@ -79,10 +79,14 @@
                                 <td>{{$post->views}}</td>
                                 <td>
                                     <div class="d-flex order-actions">
-                                        <a href="{{route('admin.posts.edit', $post)}}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{$post->id}}').submit()" class="ms-3"><i class='bx bxs-trash'></i></a>
+                                        <a href="{{route('admin.posts.edit', $post)}}" class=""><i
+                                                class='bx bxs-edit'></i></a>
+                                        <a href="#"
+                                            onclick="event.preventDefault(); document.querySelector('#delete_form_{{$post->id}}').submit()"
+                                            class="ms-3"><i class='bx bxs-trash'></i></a>
 
-                                        <form method="POST" action="{{route('admin.posts.destroy', $post)}}" id="delete_form_{{$post->id}}">
+                                        <form method="POST" action="{{route('admin.posts.destroy', $post)}}"
+                                            id="delete_form_{{$post->id}}">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -93,9 +97,6 @@
 
                         </tbody>
                     </table>
-                </div>
-                <div class="mt-4">
-                    {{ $posts->links() }}
                 </div>
             </div>
         </div>

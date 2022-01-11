@@ -26,15 +26,26 @@ class DatabaseSeeder extends Seeder
 
          \App\Models\Role::factory(1)->create();
         \App\Models\Role::factory(1)->create(['name' => 'admin']);
+
          $users = \App\Models\User::factory(10)->create();
+            \App\Models\User::factory()->create([
+            'name' => 'Azmi',
+            'email' => 'azmi.kiva@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'role_id' => 2,
+        ]);
 
          foreach($users as $user){
              $user->image()->save(\App\Models\Image::factory()->make());
          }
 
          \App\Models\Category::factory(10)->create();
+        \App\Models\Category::factory()->create(['name' => 'uncategorized']);
+
         $posts = \App\Models\Post::factory(50)->create();
+
         \App\Models\Comment::factory(100)->create();
+
         \App\Models\Tag::factory(10)->create();
 
         foreach($posts as $post){
