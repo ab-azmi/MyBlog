@@ -3,6 +3,7 @@
 @section("style")
 <link href="{{asset('admin_dashboard_asset/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
 <link href="{{asset('admin_dashboard_asset/plugins/select2/css/select2-bootstrap4.css')}}" rel="stylesheet" />
+<link href="{{asset('admin_dashboard_asset/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />
 
 <script src="https://cdn.tiny.cloud/1/lpe9b02kzkbppz26gl15na4725k7rbe0kuakp2xu3auio3jb/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
@@ -62,10 +63,10 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label for="inputProductTitle" class="form-label">Post Category</label>
+                                        <label for="inputProductTitle" class="form-label">Post Category (Recomended: 750x250px)</label>
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="p-3 rounded">
+                                                <div class="p-1 rounded">
                                                     <div class="mb-3">
                                                         <select required class="single-select" name="category_id">
                                                             @foreach ($categories as $key => $category)
@@ -79,7 +80,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                     
+                                    </div>
+                                    <div class="mb-3">
+                                       <label class="form-label">Post Tags</label>
+                                        <input type="text" name="tags" class="form-control" data-role="tagsinput" value="{{old('tags')}}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputProductDescription" class="form-label">
@@ -117,6 +121,7 @@
 @section("script")
 
 <script src="{{asset('admin_dashboard_asset/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('admin_dashboard_asset/plugins/input-tags/js/tagsinput.js')}}"></script>
 
 <script>
     $(document).ready(function () {

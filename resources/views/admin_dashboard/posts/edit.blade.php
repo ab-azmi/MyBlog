@@ -3,6 +3,7 @@
 @section("style")
 <link href="{{asset('admin_dashboard_asset/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
 <link href="{{asset('admin_dashboard_asset/plugins/select2/css/select2-bootstrap4.css')}}" rel="stylesheet" />
+<link href="{{asset('admin_dashboard_asset/plugins/input-tags/css/tagsinput.css')}}" rel="stylesheet" />
 
 <script src="https://cdn.tiny.cloud/1/lpe9b02kzkbppz26gl15na4725k7rbe0kuakp2xu3auio3jb/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
@@ -51,16 +52,17 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputProductTitle" class="form-label">Post Slug</label>
-                                        <input required type="text" class="form-control" id="inputProductTitle" name="slug"
-                                            value="{{old('slug', $post->slug)}}" placeholder="Enter product title">
+                                        <input required type="text" class="form-control" id="inputProductTitle"
+                                            name="slug" value="{{old('slug', $post->slug)}}"
+                                            placeholder="Enter product title">
                                         @error('slug')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputProductTitle" class="form-label">Post Excerpt</label>
-                                        <input required type="text" class="form-control" id="inputProductTitle" name="excerpt"
-                                            value="{{old('excerpt', $post->excerpt)}}"
+                                        <input required type="text" class="form-control" id="inputProductTitle"
+                                            name="excerpt" value="{{old('excerpt', $post->excerpt)}}"
                                             placeholder="Enter product title">
                                         @error('excerpt')
                                         <p class="text-danger">{{$message}}</p>
@@ -70,7 +72,7 @@
                                         <label for="inputProductTitle" class="form-label">Post Category</label>
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="p-3 rounded">
+                                                <div class="p-1 rounded">
                                                     <div class="mb-3">
                                                         <select required class="single-select" name="category_id">
                                                             @foreach ($categories as $key => $category)
@@ -85,7 +87,11 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Post Tags</label>
+                                        <input type="text" name="tags" class="form-control" data-role="tagsinput"
+                                            value="{{$tags}}">
                                     </div>
                                     <div class="mb-3">
                                         <div class="row">
@@ -104,14 +110,16 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <img src="/storage/{{$post->image->path}}" alt="Post Thumbnail" srcset="" class="img-thumbnail">
+                                                <img src="/storage/{{$post->image->path}}" alt="Post Thumbnail"
+                                                    srcset="" class="img-thumbnail">
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputProductDescription" class="form-label">Post Content</label>
-                                        <textarea class="form-control" id="post_content" rows="3" name="body" value="{{old('body', str_replace('../../', '../../../', $post->body))}}">
+                                        <textarea class="form-control" id="post_content" rows="3" name="body"
+                                            value="{{old('body', str_replace('../../', '../../../', $post->body))}}">
                                             {{str_replace('../../', '../../../', $post->body)}}
                                         </textarea>
                                         @error('body')
@@ -119,18 +127,19 @@
                                         @enderror
                                     </div>
                                     <button class='btn btn-primary' type='submit'>Update Post</button>
-                                    <form action="{{route('admin.posts.destroy', $post)}}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete Post</button>
-                                    </form>
+                                    <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{$post->id}}').submit()" class="btn btn-danger">
+                                        Delete Post
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <!--end row-->
                     </div>
                 </form>
-
+                <form method="POST" id="delete_form_{{$post->id}}" action="{{route('admin.posts.destroy', $post)}}">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </div>
         </div>
 
@@ -143,6 +152,7 @@
 @section("script")
 
 <script src="{{asset('admin_dashboard_asset/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('admin_dashboard_asset/plugins/input-tags/js/tagsinput.js')}}"></script>
 
 <script>
     $(document).ready(function () {

@@ -63,6 +63,9 @@ class AdminCategoriesController extends Controller
    
     public function destroy(Category $category)
     {
+        if($category->name === 'uncategorize'){
+            abort(404);
+        }
         $default_uncategorized_id = Category::where('name', 'uncategorized')->first()->id; //kategori default
         $category->posts()->update(['category_id' => $default_uncategorized_id]); //post dari kategori yg dihapus akan memiliki kategori default
         $category->delete(); //menghapus kategori
