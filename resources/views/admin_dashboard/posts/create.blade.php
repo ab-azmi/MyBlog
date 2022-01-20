@@ -63,7 +63,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label for="inputProductTitle" class="form-label">Post Category (Recomended: 750x250px)</label>
+                                        <label for="inputProductTitle" class="form-label">Post Category </label>
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="p-1 rounded">
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="inputProductDescription" class="form-label">
-                                            Product Thumbnail
+                                            Product Thumbnail (Recomended: 750x250px)
                                         </label>
                                         <input required id="thumbnail" id="file" type="file" accept=",image/*" name="thumbnail">
                                         @error('thumbnail')
@@ -155,7 +155,7 @@
             automatic_uploads: true,
             file_picker_types: 'image',
             paste_data_images: true,
-            images_upload_url: "/tinymce_image",
+            images_upload_url: "{{route('admin.tinymce_image')}}",
 
             file_picker_callback: function(cb, value, meta) {
                 var input = document.createElement('input');
@@ -183,7 +183,7 @@
             // let csrf_token = $($this).parents("form").find("input[name='_token']").val();
             
             // let xhr = new XMLHttpRequest();
-            // xhr.open('post', "{{route('/tinymce_image')}}");
+            // xhr.open('post', "{{route('admin.tinymce_image')}}");
             
             // xhr.onload = () =>{
             // if(xhr.status != 200){

@@ -14,6 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         '/tinymce_image',
-        'admin.upload_tinymce_image',
+        'admin.tinymce_image',
     ];
 }
