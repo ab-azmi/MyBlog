@@ -79,7 +79,7 @@
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon">
-                    <i class='bx bxs-key'></i>
+                    <i class='bx bx-lock'></i>
                 </div>
                 <div class="menu-title">Roles</div>
             </a>
@@ -87,7 +87,24 @@
             <ul>
                 <li> <a href="{{ route('admin.roles.index') }}"><i class="bx bx-right-arrow-alt"></i>All Roles</a>
                 </li>
-                <li> <a href="{{ route('admin.roles.create') }}"><i class="bx bx-right-arrow-alt"></i>Add New Roles</a>
+                <li> <a href="{{ route('admin.roles.create') }}"><i class="bx bx-right-arrow-alt"></i>Add New Role</a>
+                </li>
+        
+            </ul>
+        </li>
+
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon">
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="menu-title">Users</div>
+            </a>
+        
+            <ul>
+                <li> <a href="{{ route('admin.users.index') }}"><i class="bx bx-right-arrow-alt"></i>All Users</a>
+                </li>
+                <li> <a href="{{ route('admin.users.create') }}"><i class="bx bx-right-arrow-alt"></i>Add New User</a>
                 </li>
         
             </ul>

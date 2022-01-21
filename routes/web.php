@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminControllers\AdminCommentsController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
 use App\Http\Controllers\AdminControllers\AdminRolesController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
+use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\CategoryController;
@@ -48,7 +49,7 @@ require __DIR__.'/auth.php';
 
 
 //Admin Dashboard Routes
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'IsAdmin', 'check_permission'])->group(function(){
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permission', 'IsAdmin'])->group(function(){
 
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::resource('posts', AdminPostsController::class);
@@ -56,6 +57,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'IsAdmin', 'check_pe
     Route::resource('tags', AdminTagsController::class)->only(['index', 'show', 'destroy']);
     Route::resource('comments', AdminCommentsController::class);
     Route::resource('roles', AdminRolesController::class);
+    Route::resource('users', AdminUsersController::class);
     Route::post('tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('tinymce_image');
     //Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
 });
