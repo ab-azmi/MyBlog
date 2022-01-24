@@ -101,7 +101,7 @@
         let last_name = $($this).parents("form").find("input[name='last_name']").val();
         let email = $($this).parents("form").find("input[name='email']").val();
         let subject = $($this).parents("form").find("input[name='subject']").val();
-        let message = $($this).parents("form").find("input[name='message']").val();
+        let message = $($this).parents("form").find("textarea[name='message']").val();
 
         let formData = new FormData();
         formData.append('_token', csrf_token);

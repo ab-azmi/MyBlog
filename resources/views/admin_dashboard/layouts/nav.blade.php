@@ -109,6 +109,20 @@
         
             </ul>
         </li>
+
+        <li>
+            <a href="{{route('admin.contacts.index')}}">
+                <div class="parent-icon"><i class='bx bx-mail-send'></i></div>
+                <div class="menu-title">Contacts</div>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{route('admin.abouts.edit')}}">
+                <div class="parent-icon"><i class='bx bx-bulb'></i></div>
+                <div class="menu-title">Abouts</div>
+            </a>
+        </li>
     </ul>
     <!--end navigation-->
 </div>

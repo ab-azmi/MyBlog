@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Comment::truncate();
         \App\Models\Image::truncate();
         \App\Models\Permission::truncate();
+        \App\Models\Abouts::truncate();
         Schema::enableForeignKeyConstraints();
 
         \App\Models\Role::factory(1)->create();
@@ -71,5 +72,7 @@ class DatabaseSeeder extends Seeder
             $post->tags()->sync($tags_ids);
             $post->image()->save(\App\Models\Image::factory()->make());
         }
+
+        \App\Models\Abouts::factory(1)->create();
     }
 }
